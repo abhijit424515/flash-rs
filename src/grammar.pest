@@ -1,10 +1,18 @@
-command         = _{ SOI ~ ( get | set | del | lpush | clear ) ~ EOI }
+command         = _{ SOI ~ ( get | set | del | llen | lpush | rpush | lpop | rpop | sadd | srem | sismember | clear ) ~ EOI }
 
 get			 	= { "get" ~ id }
 set			 	= { "set" ~ id ~ value }
-del				= { "del" ~ ( id ~ (id)* ) }
+del				= { "del" ~ id+ }
 
-lpush			= { "lpush" ~ id ~ ( value ~ (value)* ) }
+llen			= { "llen" ~ id }
+lpush			= { "lpush" ~ id ~ value+ }
+rpush			= { "rpush" ~ id ~ value+ }
+lpop			= { "lpop" ~ id ~ integer? }
+rpop			= { "rpop" ~ id ~ integer? }
+
+sadd			= { "sadd" ~ id ~ value+ }
+srem			= { "srem" ~ id ~ value+ }
+sismember		= { "sismember" ~ id ~ value }
 
 clear        	= { "clear" }
 value			= _{ integer | float | str }

@@ -39,24 +39,28 @@ pub fn display(x: Value) -> String {
         Value::Container(c) => match c {
             Container::List(v) => {
                 let mut s = String::new();
-                for (i, x) in v.iter().enumerate() {
+                s.push_str("[");
+                for x in v.iter() {
                     s.push_str(&format!(
-                        "{}) {}\n",
-                        i + 1,
+                        "{},",
                         display(Value::Primitive(x.clone()))
                     ));
                 }
+                s.pop();
+                s.push_str("]");
                 s
             }
             Container::UnorderedSet(v) => {
                 let mut s = String::new();
-                for (i, x) in v.iter().enumerate() {
+                s.push_str("{");
+                for x in v.iter() {
                     s.push_str(&format!(
-                        "{}) {}\n",
-                        i + 1,
+                        "{},",
                         display(Value::Primitive(x.clone()))
                     ));
                 }
+                s.pop();
+                s.push_str("}");
                 s
             }
         },

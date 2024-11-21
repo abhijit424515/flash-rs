@@ -1,2 +1,7 @@
-lpush a 1 2 3
+sadd a 1 2 3
 get a
+srem a 2
+get a
+sismember a 1
+sismember a 2
+sismember a 5
