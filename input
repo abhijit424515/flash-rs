@@ -1,0 +1,5 @@
+get foo
+set foo "hello world"
+set baz 73
+get foo
+del foo bar baz

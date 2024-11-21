@@ -1,0 +1,26 @@
+command         = _{ SOI ~ ( get | set | del | clear ) ~ EOI }
+
+get			 	= { "get" ~ id }
+set			 	= { "set" ~ id ~ ( integer | float | str ) }
+del				= { "del" ~ ( id ~ (id)* ) }
+clear        	= { "clear" }
+
+id				= @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+integer         = @{ "-"? ~ ASCII_NONZERO_DIGIT ~ ASCII_DIGIT* }
+float           = @{ "-"? ~ (ASCII_NONZERO_DIGIT ~ ASCII_DIGIT* | "0") ~ "." ~ ASCII_DIGIT+ }
+
+str 			= ${ "\"" ~ inner ~ "\"" }
+inner 			= @{ char* }
+char 			= {
+    !("\"" | "\\") ~ ANY
+    | "\\" ~ ("\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t")
+    | "\\" ~ ("u" ~ ASCII_HEX_DIGIT{4})
+}
+
+WHITESPACE 		= _{ " " }
+
+// number 			= @{
+//     "-"?
+//     ~ ("0" | ASCII_NONZERO_DIGIT ~ ASCII_DIGIT*)
+//     ~ ("." ~ ASCII_DIGIT*)?
+// }
