@@ -1,5 +1,2 @@
-get foo
-set foo "hello world"
-set baz 73
-get foo
-del foo bar baz
+lpush a 1 2 3
+get a

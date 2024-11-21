@@ -1,9 +1,13 @@
-command         = _{ SOI ~ ( get | set | del | clear ) ~ EOI }
+command         = _{ SOI ~ ( get | set | del | lpush | clear ) ~ EOI }
 
 get			 	= { "get" ~ id }
-set			 	= { "set" ~ id ~ ( integer | float | str ) }
+set			 	= { "set" ~ id ~ value }
 del				= { "del" ~ ( id ~ (id)* ) }
+
+lpush			= { "lpush" ~ id ~ ( value ~ (value)* ) }
+
 clear        	= { "clear" }
+value			= _{ integer | float | str }
 
 id				= @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
 integer         = @{ "-"? ~ ASCII_NONZERO_DIGIT ~ ASCII_DIGIT* }
